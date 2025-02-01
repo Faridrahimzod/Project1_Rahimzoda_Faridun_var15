@@ -14,6 +14,18 @@ namespace ClassLibrary
             Follower = follower;
             Funds = funds;
         }
+        public Required(Dictionary<string, int> properties)
+        {
+            foreach (var property in properties.Keys)
+            {
+                switch (property)
+                {
+                    case "follower": Follower = properties[property]; break;
+                    case "funds": Funds = properties[property]; break;
+                    default: break;
+                }
+            }
+        }
 
 
         /// <summary>

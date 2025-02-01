@@ -17,6 +17,20 @@ namespace ClassLibrary
             this.Location = location;
             this.VaultCapital = vaultCapital;
         }
+
+        public Aspect(Dictionary<string, int> dict)
+        {
+            foreach (var kvp in dict.Keys)
+            {
+                switch (kvp)
+                {
+                    case "vault": Vault = Int32.Parse(dict[kvp].ToString()); break;
+                    case "location": Location = Int32.Parse(dict[kvp].ToString()); break ;
+                    case "vaultcapital": VaultCapital = Int32.Parse(dict[kvp].ToString()); break;
+                    default: break;
+                }
+            }
+        }
         // Конструктор без параметров для неявного вызова
         public Aspect()
         {

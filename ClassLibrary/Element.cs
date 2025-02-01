@@ -23,7 +23,32 @@ namespace ClassLibrary
             this.Description = description;
             this.Unique = unique;
         }
-        // Для неявнго вызова конструктора без параметров
+
+        public Element(Dictionary<string, object> pairs)
+        {
+            foreach(string key in pairs.Keys)
+            {
+                switch(key)
+                {
+                    case "id": Id = (string)pairs[key]; break;
+                    case "label": Label = (string)pairs[key]; break;
+                    case "aspects": Aspects = new Aspect((Dictionary<string, int>)pairs[key]); break;
+                    case "slots": 
+                        List<Slot> slots = new List<Slot>();
+                        foreach (var a in  (List<Dictionary<string, object>>)pairs[key])
+                        {
+                            Slot slot = new Slot(a);
+                            slots.Add(slot);
+                        }
+                        this.Slots = slots;
+                        break;
+                    case "description": Description = (string)pairs[key]; break;
+                    case "unique": Unique = (bool)pairs[key];break;
+                    default: break;
+                }
+            }
+        }
+        // Для неявного вызова конструктора без параметров
         public Element() 
         {
             Id = null;

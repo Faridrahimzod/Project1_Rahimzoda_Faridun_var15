@@ -9,7 +9,7 @@ namespace ClassLibrary
     public static class JsonParser
     {
         // Метод для записи JSON в поток вывода
-        public static void WriteJson(IJsonObject obj)
+        public static void WriteJson(IJsonObject obj, string path)
         {
             var jsonBuilder = new StringBuilder();
             jsonBuilder.Append("{");
@@ -34,20 +34,20 @@ namespace ClassLibrary
         }
 
         // Метод для чтения JSON из потока ввода
-        public static IJsonObject ReadJson()
+        public static IJsonObject ReadJson(string jsonString)
         {
             // Чтение всей JSON-строки из входного потока (например, консоли)
-            string jsonString = Console.In.ReadToEnd();
+            
             int index = 0; // Индекс для отслеживания текущей позиции в строке
 
             // Парсинг JSON-строки и получение результата
             var result = ParsingType.ParseJsonValue(jsonString, ref index);
 
             // Проверка, что результат является объектом (словарём)
-            if (result is Dictionary<string, object> dictionary)
+            if (result is Dictionary<string, List<Dictionary<string, object>>> dictionary)
             {
                 // Возвращаем объект, реализующий IJsonObject
-                return new SimpleJsonObject(dictionary);
+                return new VaultData(dictionary);
             }
 
             // Если результат не является объектом, выбрасываем исключение

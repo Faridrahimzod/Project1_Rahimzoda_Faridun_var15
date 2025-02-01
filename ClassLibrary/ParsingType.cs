@@ -106,9 +106,9 @@ namespace ClassLibrary
         }
 
         // Парсинг JSON-массива
-        private static List<object> ParseJsonArray(string json, ref int index)
+        private static List<Dictionary<string, object>> ParseJsonArray(string json, ref int index)
         {
-            var result = new List<object>();
+            var result = new List<Dictionary<string, Object>>();
             index++; // Пропуск '['
 
             while (index < json.Length)
@@ -123,7 +123,7 @@ namespace ClassLibrary
                 }
 
                 // Парсинг элемента массива
-                object value = ParseJsonValue(json, ref index);
+                Dictionary<string, object> value = (Dictionary<string, object>)ParseJsonValue(json, ref index);
                 result.Add(value); // Добавление элемента в массив
 
                 SkipWhitespace(json, ref index);

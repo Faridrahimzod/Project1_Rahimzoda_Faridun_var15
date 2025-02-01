@@ -21,6 +21,22 @@ namespace ClassLibrary
             this.Required = required;
             this.ActionId = actionId;
         }
+
+        public Slot(Dictionary<string, object> dict)
+        {
+            foreach (var kvp in dict.Keys)
+            {
+                switch (kvp)
+                {
+                    case "id": Id = dict[kvp].ToString(); break;
+                    case "label": Label = dict[kvp].ToString(); break;
+                    case "description": Description = dict[kvp].ToString(); break;
+                    case "required": Required = new Required((Dictionary<string, int>)dict[kvp]); break;
+                    case "actionid": ActionId = dict[kvp].ToString();break;
+                    default: break;
+                }
+            }
+        }
         // Конструктор без параметров для неявного вызова
         public Slot()
         {

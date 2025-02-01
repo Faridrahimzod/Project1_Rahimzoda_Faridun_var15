@@ -11,16 +11,27 @@ namespace ClassLibrary
 {
     class VaultData : IJsonObject
     {
-        public List<Element>? Elements { get; private set; }
+        public Dictionary <string, List<Element>>? Elements { get; private set; }
 
         // Создаём конструкторы
         public VaultData() 
         {
             this.Elements = null;
         }
-        public VaultData(List<Element>? elements)
+        public VaultData(Dictionary<string, List<Dictionary<string, object>>> elements)
         {
-            this.Elements = elements;
+
+            Dictionary<string, List<Element>> a = new Dictionary<string, List<Element>>();
+            foreach (var listelement in elements.Keys)
+            {
+                List<Element> list = new List<Element>();
+                foreach (var element in elements [listelement])
+                {
+                    list.Add(new Element(element));   
+                }
+                a[listelement] = list;
+            }
+            this.Elements = a;
         }
 
         /// <summary>
