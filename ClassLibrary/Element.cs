@@ -102,6 +102,11 @@ namespace ClassLibrary
                 default: throw new KeyNotFoundException();
             }
         }
+
+        public override string ToString()
+        {
+            return $"id : {Id}, label : {Label}, aspects : {Aspects.ToString()}, slots : {string.Join(", ", Slots)}, description : {Description}, unique : {Unique.ToString()}";
+        }
     }
 
 }

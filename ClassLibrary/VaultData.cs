@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace ClassLibrary
 {
-    class VaultData : IJsonObject
+    public class VaultData : IJsonObject
     {
         public Dictionary <string, List<Element>>? Elements { get; private set; }
 

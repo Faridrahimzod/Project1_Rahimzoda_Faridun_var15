@@ -9,7 +9,7 @@ namespace ClassLibrary
     public static class JsonParser
     {
         // Метод для записи JSON в поток вывода
-        public static void WriteJson(IJsonObject obj, string path)
+        public static string WriteJson(IJsonObject obj)
         {
             var jsonBuilder = new StringBuilder();
             jsonBuilder.Append("{");
@@ -30,7 +30,7 @@ namespace ClassLibrary
             }
 
             jsonBuilder.Append("}");
-            Console.Out.Write(jsonBuilder.ToString());
+            return (jsonBuilder.ToString());
         }
 
         // Метод для чтения JSON из потока ввода

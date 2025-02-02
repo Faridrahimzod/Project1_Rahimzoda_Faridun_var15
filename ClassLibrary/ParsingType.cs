@@ -9,7 +9,7 @@ namespace ClassLibrary
     /// <summary>
     /// Вспомогательный класс для Парсинга 
     /// </summary>
-    class ParsingType
+    public class ParsingType
     {
         // Рекурсивный метод для парсинга JSON-значений
         public static object ParseJsonValue(string json, ref int index)
