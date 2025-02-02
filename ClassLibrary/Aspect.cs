@@ -20,14 +20,13 @@ namespace ClassLibrary
 
         public Aspect(Dictionary<string, int> dict)
         {
-            foreach (var kvp in dict.Keys)
+            foreach (var kvp in dict)
             {
-                switch (kvp)
+                switch (kvp.Key)
                 {
-                    case "vault": Vault = Int32.Parse(dict[kvp].ToString()); break;
-                    case "location": Location = Int32.Parse(dict[kvp].ToString()); break ;
-                    case "vaultcapital": VaultCapital = Int32.Parse(dict[kvp].ToString()); break;
-                    default: break;
+                    case "vault": Vault = kvp.Value; break;
+                    case "location": Location = kvp.Value; break;
+                    case "vaultcapital": VaultCapital = kvp.Value; break;
                 }
             }
         }

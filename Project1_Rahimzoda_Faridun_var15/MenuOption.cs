@@ -16,8 +16,9 @@ namespace Project1_Rahimzoda_Faridun_var15
             Console.WriteLine("5.Конвертация загруженных данных в Excel-таблицу и обратно");
             Console.WriteLine("6.Вывести данные(консоль/файл)");
             Console.WriteLine("7.Выход");
-
-            return Console.ReadLine();
+            Console.SetIn(Console.In);
+            string res = Console.ReadLine();
+            return res;
         }
     }
 }

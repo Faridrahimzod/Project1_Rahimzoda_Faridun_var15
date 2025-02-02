@@ -23,10 +23,9 @@ namespace Project1_Rahimzoda_Faridun_var15
                 string path = Console.ReadLine();
                 using (StreamWriter log =  new StreamWriter(path))
                 {
-                    Console.SetOut(log);
-                    Console.WriteLine(JsonParser.WriteJson(vaultData));
+                    log.Write(JsonParser.WriteJson(vaultData));
                 }
-                Console.SetOut(Console.Out);
+                
             }
         }
     }

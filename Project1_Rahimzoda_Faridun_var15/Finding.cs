@@ -14,17 +14,20 @@ namespace Project1_Rahimzoda_Faridun_var15
             Console.WriteLine("Введите id нужного хранилища");
             string idForSearch = Console.ReadLine();
             VaultData v = new VaultData();
-            foreach (string key in vaultData.Elements.Keys)
+            foreach (string el in vaultData.Elements.Keys)
             {
-                foreach(Element element in vaultData.Elements[key])
+                foreach (Element element in vaultData.Elements[el])
                 {
-                    if (element.Id == idForSearch)
+                    string? fieldValue = element.GetField("id");
+
+                    if (fieldValue == idForSearch)
                     {
-                        Console.WriteLine(element.ToString());
-                        v.Elements[key].Add(element);
-                        break;
+                        if (!v.Elements.ContainsKey(el))
+                        {
+                            v.Elements[el] = new List<Element>(); // Инициализация списка, если его нет
+                        }
+                        v.Elements[el].Add(element);
                     }
-                    
                 }
             }
             return v;

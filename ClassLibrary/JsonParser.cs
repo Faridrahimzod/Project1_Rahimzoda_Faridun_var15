@@ -11,47 +11,20 @@ namespace ClassLibrary
         // Метод для записи JSON в поток вывода
         public static string WriteJson(IJsonObject obj)
         {
-            var jsonBuilder = new StringBuilder();
-            jsonBuilder.Append("{");
-
-            var fields = obj.GetAllFields();
-            bool first = true;
-
-            foreach (var field in fields)
-            {
-                if (!first)
-                {
-                    jsonBuilder.Append(",");
-                }
-                first = false;
-
-                string value = obj.GetField(field);
-                jsonBuilder.Append($"\"{field}\":\"{value}\"");
-            }
-
-            jsonBuilder.Append("}");
-            return (jsonBuilder.ToString());
+            return ParsingType.WriteJsonObject(obj);
         }
 
-        // Метод для чтения JSON из потока ввода
         public static IJsonObject ReadJson(string jsonString)
         {
-            // Чтение всей JSON-строки из входного потока (например, консоли)
-            
-            int index = 0; // Индекс для отслеживания текущей позиции в строке
-
-            // Парсинг JSON-строки и получение результата
+            int index = 0;
             var result = ParsingType.ParseJsonValue(jsonString, ref index);
 
-            // Проверка, что результат является объектом (словарём)
-            if (result is Dictionary<string, List<Dictionary<string, object>>> dictionary)
+            if (result is Dictionary<string, object> parsedData)
             {
-                // Возвращаем объект, реализующий IJsonObject
-                return new VaultData(dictionary);
+                return new VaultData(parsedData);
             }
 
-            // Если результат не является объектом, выбрасываем исключение
-            throw new FormatException("Invalid JSON format: expected an object.");
+            throw new FormatException("Ожидается объект JSON.");
         }
     }
 }

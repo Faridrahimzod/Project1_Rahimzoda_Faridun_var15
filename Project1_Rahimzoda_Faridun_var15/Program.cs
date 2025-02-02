@@ -9,51 +9,92 @@ class Program
     {
         string choice;
         bool doing = true;
+        VaultData vaultData = null;
         do
         {
             choice = MenuOption.Menu();
-            VaultData vaultData = null;
             switch (choice)
             {
-                case "1": vaultData = (VaultData)InputOption.Input(); break;
-                case "2": 
-                    if (vaultData is null)
+                case "1":
+                    try
                     {
-                        Console.WriteLine("Отсутствуют данные для фильтрации, введите сначала данные");
-                        continue;
+                        vaultData = (VaultData)InputOption.Input();
                     }
-                    else
+                    catch (Exception e) { Console.WriteLine($"Ошибка: {e}"); }
+                    break;
+                case "2":
+                    try
                     {
-                        vaultData = Filter.FieldFiltering(vaultData);
+                        if (vaultData is null)
+                        {
+                            Console.WriteLine("Отсутствуют данные для фильтрации, введите сначала данные");
+                            continue;
+                        }
+                        else
+                        {
+                            vaultData = Filter.FieldFiltering(vaultData);
+                            Console.WriteLine(JsonParser.WriteJson(vaultData));
+
+                        }
                     }
+                    catch (Exception e) { Console.WriteLine($"Ошибка: {e}"); }
                     break;
                 case "3":
-                    if (vaultData is null)
+                    try
                     {
-                        Console.WriteLine("Отсутствуют данные для фильтрации, введите сначала данные");
-                        continue;
+                        if (vaultData is null)
+                        {
+                            Console.WriteLine("Отсутствуют данные для фильтрации, введите сначала данные");
+                            continue;
+                        }
+                        else
+                        {
+                            vaultData = Sort.Sorting(vaultData);
+                            Console.WriteLine(JsonParser.WriteJson(vaultData));
+                        }
                     }
-                    else
-                    {
-                        vaultData = Sort.Sorting(vaultData);
-                    }
+                    catch (Exception e) { Console.WriteLine($"Ошибка: {e}"); }
                     break;
                 case "4":
-                    if (vaultData is null)
+                    try
                     {
-                        Console.WriteLine("Отсутствуют данные для фильтрации, введите сначала данные");
-                        continue;
+                        if (vaultData is null)
+                        {
+                            Console.WriteLine("Отсутствуют данные для фильтрации, введите сначала данные");
+                            continue;
+                        }
+                        else
+                        {
+                            vaultData = Finding.FindingById(vaultData);
+                            Console.WriteLine(JsonParser.WriteJson(vaultData));
+                        }
                     }
-                    else
-                    {
-                        vaultData = Finding.FindingById(vaultData);
-                    }
+                    catch (Exception e) { Console.WriteLine($"Ошибка: {e}"); }
                     break;
-                case "5": 
-                    //Здесь будет Доп. Задача
+                case "5":
+                    try
+                    {
+                        Console.WriteLine("Выберите действие:\n1.Чтение данных из excel файла\n2.Конвертация данных в excel файл");
+                        string choiceForExcel = Console.ReadLine();
+                        if (choiceForExcel != "1")
+                        {
+                            vaultData = ExcelConverter.LoadFromExcel();
+                        }
+                        else if (choiceForExcel == "2")
+                        {
+                            ExcelConverter.SaveToExcel(vaultData);
+                        }
+                        else { Console.WriteLine("Неправильный ввод"); }
+
+                    }
+                    catch (Exception e) { Console.WriteLine($"Ошибка: {e}"); }
                     break;
                 case "6":
-                    OutputOptions.Output(vaultData);
+                    try
+                    {
+                        OutputOptions.Output(vaultData);
+                    }
+                    catch (Exception e) { Console.WriteLine($"Ошибка: {e}"); }
                     break;
                 case "7":
                     doing = false;

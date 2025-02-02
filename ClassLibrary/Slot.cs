@@ -24,16 +24,43 @@ namespace ClassLibrary
 
         public Slot(Dictionary<string, object> dict)
         {
-            foreach (var kvp in dict.Keys)
+            foreach (var kvp in dict)
             {
-                switch (kvp)
+                switch (kvp.Key)
                 {
-                    case "id": Id = dict[kvp].ToString(); break;
-                    case "label": Label = dict[kvp].ToString(); break;
-                    case "description": Description = dict[kvp].ToString(); break;
-                    case "required": Required = new Required((Dictionary<string, int>)dict[kvp]); break;
-                    case "actionid": ActionId = dict[kvp].ToString();break;
-                    default: break;
+                    case "id":
+                        Id = kvp.Value?.ToString();
+                        break;
+                    case "label":
+                        Label = kvp.Value?.ToString();
+                        break;
+                    case "description":
+                        Description = kvp.Value?.ToString();
+                        break;
+                    case "required":
+                        if (kvp.Value is Dictionary<string, object> requiredDict)
+                        {
+                            // Конвертируем Dictionary<string, object> в Dictionary<string, int>
+                            var convertedDict = new Dictionary<string, int>();
+                            foreach (var entry in requiredDict)
+                            {
+                                if (entry.Value is int intValue)
+                                {
+                                    convertedDict[entry.Key] = intValue;
+                                }
+                                else
+                                {
+                                    throw new InvalidCastException($"Неверный тип значения для ключа '{entry.Key}' в поле 'required'. Ожидается int.");
+                                }
+                            }
+                            Required = new Required(convertedDict);
+                        }
+                        break;
+                    case "actionid":
+                        ActionId = kvp.Value?.ToString();
+                        break;
+                    default:
+                        break;
                 }
             }
         }

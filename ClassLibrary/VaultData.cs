@@ -16,22 +16,24 @@ namespace ClassLibrary
         // Создаём конструкторы
         public VaultData() 
         {
-            this.Elements = null;
+            Elements = new Dictionary<string, List<Element>>();
         }
-        public VaultData(Dictionary<string, List<Dictionary<string, object>>> elements)
+        public VaultData(Dictionary<string, object> parsedData)
         {
+            Elements = new Dictionary<string, List<Element>>();
 
-            Dictionary<string, List<Element>> a = new Dictionary<string, List<Element>>();
-            foreach (var listelement in elements.Keys)
+            if (parsedData.TryGetValue("elements", out object elementsObj) && elementsObj is List<object> elementsList)
             {
-                List<Element> list = new List<Element>();
-                foreach (var element in elements [listelement])
+                List<Element> elements = new List<Element>();
+                foreach (var elementObj in elementsList)
                 {
-                    list.Add(new Element(element));   
+                    if (elementObj is Dictionary<string, object> elementDict)
+                    {
+                        elements.Add(new Element(elementDict));
+                    }
                 }
-                a[listelement] = list;
+                Elements["elements"] = elements;
             }
-            this.Elements = a;
         }
 
         /// <summary>
@@ -67,10 +69,14 @@ namespace ClassLibrary
         {
             switch (fieldName)
             {
-                case "elements": 
+                case "elements": break;
                     
                 default: throw new KeyNotFoundException();
             }
+        }
+        public Dictionary<string, object> ToSerializableObject()
+        {
+            return Elements.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
         }
 
     }

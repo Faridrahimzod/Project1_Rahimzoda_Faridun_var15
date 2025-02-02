@@ -26,25 +26,37 @@ namespace ClassLibrary
 
         public Element(Dictionary<string, object> pairs)
         {
-            foreach(string key in pairs.Keys)
+            foreach (var kvp in pairs)
             {
-                switch(key)
+                switch (kvp.Key)
                 {
-                    case "id": Id = (string)pairs[key]; break;
-                    case "label": Label = (string)pairs[key]; break;
-                    case "aspects": Aspects = new Aspect((Dictionary<string, int>)pairs[key]); break;
-                    case "slots": 
-                        List<Slot> slots = new List<Slot>();
-                        foreach (var a in  (List<Dictionary<string, object>>)pairs[key])
-                        {
-                            Slot slot = new Slot(a);
-                            slots.Add(slot);
-                        }
-                        this.Slots = slots;
+                    case "id":
+                        if (kvp.Value is string id) Id = id;
                         break;
-                    case "description": Description = (string)pairs[key]; break;
-                    case "unique": Unique = (bool)pairs[key];break;
-                    default: break;
+                    case "label":
+                        if (kvp.Value is string label) Label = label;
+                        break;
+                    case "aspects":
+                        if (kvp.Value is Dictionary<string, object> aspectsDict)
+                            Aspects = new Aspect(aspectsDict.ToDictionary(k => k.Key, v => Convert.ToInt32(v.Value)));
+                        break;
+                    case "slots":
+                        if (kvp.Value is List<object> slotsList)
+                        {
+                            Slots = slotsList.ConvertAll(slotObj =>
+                            {
+                                if (slotObj is Dictionary<string, object> slotDict)
+                                    return new Slot(slotDict);
+                                return new Slot();
+                            });
+                        }
+                        break;
+                    case "description":
+                        if (kvp.Value is string desc) Description = desc;
+                        break;
+                    case "unique":
+                        if (kvp.Value is bool unique) Unique = unique;
+                        break;
                 }
             }
         }
