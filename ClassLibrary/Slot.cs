@@ -1,4 +1,8 @@
-﻿using System;
+﻿///Рахимзода Фаридун Тоджиддин
+///БПИ244-1
+///Вариант 15
+
+using System;
 using System.Collections.Generic;
 
 
@@ -12,7 +16,7 @@ namespace ClassLibrary
         public Required? Required { get; private set; }
         public string? ActionId { get; private set; }
 
-        // Основной конструктор с параметрами
+        // Основные конструкторы с параметрами
         public Slot(string id, string label, string description, Required required, string actionId)
         {
             this.Id = id;
@@ -118,6 +122,7 @@ namespace ClassLibrary
                 default: throw new KeyNotFoundException();
             }
         }
+        
         public override string? ToString()
         {
             return $"id: {Id}, label: {Label}, description: {Description}, required : ";

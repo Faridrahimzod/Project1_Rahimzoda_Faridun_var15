@@ -1,11 +1,22 @@
-﻿using System;
+﻿///Рахимзода Фаридун Тоджиддин
+///БПИ244-1
+///Вариант 15
+
+using System;
 using System.Collections.Generic;
 
 
 namespace Project1_Rahimzoda_Faridun_var15
 {
+    /// <summary>
+    /// Статический класс для показа меню
+    /// </summary>
     internal static class MenuOption
     {
+        /// <summary>
+        /// Метод показа меню
+        /// </summary>
+        /// <returns>Строка - Выбор пользователя</returns>
         public static string? Menu()
         {
             Console.WriteLine("================= Menu =====================");

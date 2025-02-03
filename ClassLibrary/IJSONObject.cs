@@ -1,4 +1,8 @@
-﻿using System;
+﻿///Рахимзода Фаридун Тоджиддин
+///БПИ244-1
+///Вариант 15
+
+using System;
 using System.Collections.Generic;
 
 namespace ClassLibrary

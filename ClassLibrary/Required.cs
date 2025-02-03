@@ -1,4 +1,8 @@
-﻿using System;
+﻿///Рахимзода Фаридун Тоджиддин
+///БПИ244-1
+///Вариант 15
+
+using System;
 using System.Collections.Generic;
 
 namespace ClassLibrary
@@ -8,7 +12,7 @@ namespace ClassLibrary
         public int Follower { get; private set; }
         public int Funds { get; private set; }
 
-        // Основной конструктор с параметрами и без
+        // Основные конструкторы с параметрами и без
         public Required(int follower = 0, int funds = 0)
         {
             Follower = follower;

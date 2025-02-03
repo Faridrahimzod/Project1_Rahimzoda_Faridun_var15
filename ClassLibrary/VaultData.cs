@@ -1,4 +1,8 @@
-﻿using System;
+﻿///Рахимзода Фаридун Тоджиддин
+///БПИ244-1
+///Вариант 15
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
@@ -74,7 +78,11 @@ namespace ClassLibrary
                 default: throw new KeyNotFoundException();
             }
         }
-        public Dictionary<string, object> ToSerializableObject()
+        /// <summary>
+        /// Метод для передачи ключей и значений из объекта
+        /// </summary>
+        /// <returns>Словарь, где ключи - поля, значения - значения полей</returns>
+        public Dictionary<string, object> ToSerializableObject() 
         {
             return Elements.ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
         }

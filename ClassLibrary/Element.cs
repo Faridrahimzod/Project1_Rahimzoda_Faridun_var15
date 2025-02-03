@@ -1,4 +1,8 @@
-﻿using System;
+﻿///Рахимзода Фаридун Тоджиддин
+///БПИ244-1
+///Вариант 15
+
+using System;
 using System.Collections.Generic;
 
 
@@ -13,7 +17,7 @@ namespace ClassLibrary
         public string? Description { get; private set; }
         public bool Unique { get; private set; }
 
-        // Основной конструктор с параметрами
+        // Основные конструкторы с параметрами
         public Element(string id, string label, Aspect aspects, List<Slot> slots, string description, bool unique)
         {
             this.Id = id;

@@ -1,4 +1,8 @@
-﻿using System;
+﻿///Рахимзода Фаридун Тоджиддин
+///БПИ244-1
+///Вариант 15
+
+using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
@@ -10,7 +14,7 @@ namespace ClassLibrary
         public int? Vault { get; private set; }
         public int? Location { get; private set; }
         public int? VaultCapital { get; private set; }
-        // Основной конструктор с параметрами
+        // Основные конструкторы с параметрами
         public Aspect(int vault, int location, int vaultCapital)
         {
             this.Vault = vault;
